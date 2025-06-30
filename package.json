@@ -8,7 +8,7 @@
   "scripts": {
     "preinstall": "./preinstall.sh",
     "dev": "node --loader ts-node/esm src/index.ts",
-    "build": "tsc && ncc build src/index.ts --minify --target esm -o dist && mv dist/index.js dist/index.mjs && find dist/ -type f -not -name '*.mjs' -delete",
+    "build": "tsc && ncc build src/index.ts --minify -o dist && mv dist/index.js dist/index.mjs && find dist/ -type f -not -name '*.mjs' -delete",
     "lint": "biome lint"
   },
   "dependencies": {
