@@ -9,6 +9,8 @@ on:
 jobs:
   update-gist:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
     steps:
       - name: Update gist
         uses: codwithyc/productive-box@master
@@ -16,3 +18,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GIST_ID: ${{ secrets.GIST_ID }}
           TIMEZONE: ${{ secrets.TIMEZONE }}
+      # 저장소에 60일 커밋이 없으면 GitHub 가 예약 실행을 끈다(2026-06 에 이렇게 멈췄다). 매번 다시 켜 두어 타이머를 되돌린다.
+      - name: Keep schedule enabled
+        run: gh api -X PUT repos/${{ github.repository }}/actions/workflows/schedule.yml/enable
+        env:
+          GH_TOKEN: ${{ github.token }}
